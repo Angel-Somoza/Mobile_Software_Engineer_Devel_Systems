@@ -1,4 +1,4 @@
-package com.example.qr_scanner.parser
+package com.asomoza.qr_scanner.parser
 
 internal object QrPayloadParser {
 

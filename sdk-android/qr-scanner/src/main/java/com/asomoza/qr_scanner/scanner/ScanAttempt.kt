@@ -1,7 +1,7 @@
-package com.example.qr_scanner.scanner
+package com.asomoza.qr_scanner.scanner
 
-import com.example.qr_scanner.parser.QrParseResult
-import com.example.qr_scanner.parser.QrPayloadParser
+import com.asomoza.qr_scanner.parser.QrParseResult
+import com.asomoza.qr_scanner.parser.QrPayloadParser
 import java.util.concurrent.atomic.AtomicBoolean
 
 internal class ScanAttempt(private val onResult: (ScanResult) ->  Unit){

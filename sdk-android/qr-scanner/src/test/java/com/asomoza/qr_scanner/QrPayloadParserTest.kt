@@ -1,8 +1,8 @@
-package com.example.qr_scanner
+package com.asomoza.qr_scanner
 
-import com.example.qr_scanner.parser.QrParseResult
-import com.example.qr_scanner.parser.QrParserReason
-import com.example.qr_scanner.parser.QrPayloadParser
+import com.asomoza.qr_scanner.parser.QrParseResult
+import com.asomoza.qr_scanner.parser.QrParserReason
+import com.asomoza.qr_scanner.parser.QrPayloadParser
 import org.junit.Test
 import org.junit.Assert.*
 

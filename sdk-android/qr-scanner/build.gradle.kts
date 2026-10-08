@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.qr_scanner"
+    namespace = "com.asomoza.qr_scanner"
     compileSdk = 35
 
     defaultConfig {

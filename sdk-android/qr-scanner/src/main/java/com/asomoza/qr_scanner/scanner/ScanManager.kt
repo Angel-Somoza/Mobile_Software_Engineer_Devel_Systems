@@ -1,4 +1,4 @@
-package com.example.qr_scanner.scanner
+package com.asomoza.qr_scanner.scanner
 
 internal class ScanManager {
 

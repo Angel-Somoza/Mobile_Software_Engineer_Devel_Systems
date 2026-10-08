@@ -1,8 +1,8 @@
-package com.example.qr_scanner
+package com.asomoza.qr_scanner
 
-import com.example.qr_scanner.scanner.ScanErrors
-import com.example.qr_scanner.scanner.ScanManager
-import com.example.qr_scanner.scanner.ScanResult
+import com.asomoza.qr_scanner.scanner.ScanErrors
+import com.asomoza.qr_scanner.scanner.ScanManager
+import com.asomoza.qr_scanner.scanner.ScanResult
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
