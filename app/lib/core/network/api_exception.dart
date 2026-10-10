@@ -25,3 +25,8 @@ class HttpStatusException extends ApiException {
 class InvalidResponseException extends ApiException {
   const InvalidResponseException() : super('La respuesta del servidor no es valida');
 }
+
+class ConnectionLostException extends ApiException {
+  const ConnectionLostException()
+      : super('Se perdio la conexion durante el envio');
+}

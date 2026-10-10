@@ -2,9 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'features/catalog/presentation/catalog_screen.dart';
+import 'features/outbox/presentation/outbox_providers.dart';
 
-void main() {
-  runApp(const ProviderScope(child: FlashOrdersApp()));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final container = ProviderContainer();
+  await container.read(outboxRepositoryProvider).recoverInterruptedSends();
+
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: const FlashOrdersApp(),
+    ),
+  );
 }
 
 class FlashOrdersApp extends StatelessWidget {

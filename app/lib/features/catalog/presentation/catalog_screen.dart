@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../order/presentation/order_providers.dart';
 import '../../order/presentation/order_screen.dart';
 import 'catalog_providers.dart';
+import '../../outbox/presentation/outbox_screen.dart';
 
 class CatalogScreen extends ConsumerStatefulWidget {
   const CatalogScreen({super.key});
@@ -43,6 +44,13 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
             ),
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => const OrderScreen()),
+            ),
+          ),
+          IconButton(
+            tooltip: 'Pedidos',
+            icon: const Icon(Icons.receipt_long),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const OutboxScreen()),
             ),
           ),
         ],
