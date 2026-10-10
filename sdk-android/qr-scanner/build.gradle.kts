@@ -5,12 +5,13 @@ plugins {
 
 android {
     namespace = "com.asomoza.qr_scanner"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 23
 
         consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -38,6 +39,9 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation(libs.mlkit.barcode.scanning)
     testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit.ktx)
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.rules)
 }
 val copyAarToApp by tasks.registering(Copy::class) {
     description = "Sdk nativo arr"
