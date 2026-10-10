@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../scanner/domain/scan_failure.dart';
-import '../../scanner/presentation/scanner_providers.dart';
+import '../../order/presentation/order_providers.dart';
+import '../../order/presentation/order_screen.dart';
 import 'catalog_providers.dart';
 
 class CatalogScreen extends ConsumerStatefulWidget {
@@ -19,26 +19,11 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
     Future.microtask(() => ref.read(catalogRefreshProvider.notifier).refresh());
   }
 
-  Future<void> _scan() async {
-    final messenger = ScaffoldMessenger.of(context);
-    String message;
-    try {
-      final productId = await ref.read(scannerBridgeProvider).scanProduct();
-      final product =
-      await ref.read(catalogRepositoryProvider).findById(productId);
-      message = product == null
-          ? 'Producto $productId no esta en el catalogo'
-          : 'Escaneado: ${product.title}';
-    } on ScanFailure catch (failure) {
-      message = 'Escaneo sin resultado: ${failure.reason.name}';
-    }
-    messenger.showSnackBar(SnackBar(content: Text(message)));
-  }
-
   @override
   Widget build(BuildContext context) {
     final products = ref.watch(productsProvider);
     final refreshState = ref.watch(catalogRefreshProvider);
+    final itemCount = ref.watch(cartControllerProvider).itemCount;
 
     return Scaffold(
       appBar: AppBar(
@@ -50,12 +35,17 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                 ? null
                 : () => ref.read(catalogRefreshProvider.notifier).refresh(),
           ),
+          IconButton(
+            icon: Badge(
+              isLabelVisible: itemCount > 0,
+              label: Text('$itemCount'),
+              child: const Icon(Icons.shopping_cart_outlined),
+            ),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const OrderScreen()),
+            ),
+          ),
         ],
-      ),
-      // NUEVO
-      floatingActionButton: FloatingActionButton(
-        onPressed: _scan,
-        child: const Icon(Icons.qr_code_scanner),
       ),
       body: Column(
         children: [
@@ -78,7 +68,16 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                   return ListTile(
                     leading: Text('${product.id}'),
                     title: Text(product.title),
-                    trailing: Text('USD ${product.price.toStringAsFixed(2)}'),
+                    trailing:
+                    Text('USD ${product.price.toStringAsFixed(2)}'),
+                    onTap: () {
+                      ref.read(cartControllerProvider.notifier).add(product);
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(
+                          SnackBar(content: Text('Agregado: ${product.title}')),
+                        );
+                    },
                   );
                 },
               ),
