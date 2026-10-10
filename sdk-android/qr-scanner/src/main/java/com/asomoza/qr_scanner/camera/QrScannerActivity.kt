@@ -10,25 +10,41 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import com.asomoza.qr_scanner.QrScanner
+import com.asomoza.qr_scanner.scanner.ScanAttempt
+
 
 internal class QrScannerActivity : ComponentActivity() {
 
     private lateinit var previewView: PreviewView
+    private var attempt : ScanAttempt? = null
+
 
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { grant ->
             if (grant) {
                 startCamera()
             } else {
+                attempt?.permissionDenied()
                 finish()
             }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        attempt = QrScanner.currentAttempt
+        if (attempt == null) {
+            finish()
+            return
+        }
+
         previewView = PreviewView(this)
         setContentView(previewView)
+        requestPermission()
+    }
 
+    private fun requestPermission() {
         val grant = ContextCompat.checkSelfPermission(
             this, Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED

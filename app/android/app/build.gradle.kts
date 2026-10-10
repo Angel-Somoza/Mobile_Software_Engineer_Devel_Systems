@@ -47,3 +47,12 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    implementation(files("libs/qr-scanner-release.aar"))
+    implementation("androidx.camera:camera-core:1.6.2")
+    implementation("androidx.camera:camera-camera2:1.6.2")
+    implementation("androidx.camera:camera-lifecycle:1.6.2")
+    implementation("androidx.camera:camera-view:1.6.2")
+    implementation("com.google.mlkit:barcode-scanning:17.3.0")
+}

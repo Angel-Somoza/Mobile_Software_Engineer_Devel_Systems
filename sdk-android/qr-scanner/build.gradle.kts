@@ -39,3 +39,12 @@ dependencies {
     implementation(libs.mlkit.barcode.scanning)
     testImplementation(libs.junit)
 }
+val copyAarToApp by tasks.registering(Copy::class) {
+    description = "Sdk nativo arr"
+    from(layout.buildDirectory.file("outputs/aar/qr-scanner-release.aar"))
+    into(rootProject.layout.projectDirectory.dir("../app/android/app/libs"))
+}
+
+tasks.matching { it.name == "assembleRelease" }.configureEach {
+    finalizedBy(copyAarToApp)
+}

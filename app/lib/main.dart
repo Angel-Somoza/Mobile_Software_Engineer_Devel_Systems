@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,39 +28,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  static const platform = MethodChannel('com.asomoza.flash_orders/qr_scanner');
 
-  void _incrementCounter() {
+  String _scanStatus = 'Aún no has escaneado.';
+
+  Future<void> _startScan() async {
+    String status;
+    try {
+      final productId = await platform.invokeMethod<int>('startScan');
+      status = 'Producto escaneado: $productId';
+    } on PlatformException catch (e) {
+      status = 'Error: ${e.code}';
+    }
+
     setState(() {
-      _counter++;
+      _scanStatus = status;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: const Text('Escaner QR')),
       body: Center(
-
         child: Column(
-          mainAxisAlignment: .center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            ElevatedButton(
+              onPressed: _startScan,
+              child: const Text('Escanear QR'),
             ),
+            Text(_scanStatus),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
