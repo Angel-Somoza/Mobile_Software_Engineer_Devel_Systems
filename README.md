@@ -32,7 +32,6 @@ Aplicación Flutter para registrar pedidos de demostración leyendo códigos QR 
 │   │       └── scanner/    # Contrato Dart del puente (ScannerBridge)
 │   ├── android/app/src/main/kotlin/.../MainActivity.kt   # Lado nativo del puente
 │   └── test/               # Pruebas Dart
-├── tools/generate_qr.py    # Generador de los QR de prueba
 ├── docs/qr/                # QR de prueba ya generados
 └── AI_USAGE.md
 ```
@@ -185,10 +184,6 @@ Contenido: `product:<id>`, con prefijo en minúsculas y un ID entero positivo si
 
 Las imágenes ya generadas están en [`docs/qr/`](docs/qr/) (un PNG por caso y `sheet.png` con todos). Para regenerarlas:
 
-```bash
-pip install "qrcode[pil]"
-python tools/generate_qr.py docs/qr
-```
 
 Basta con mostrarlos en otra pantalla.
 
