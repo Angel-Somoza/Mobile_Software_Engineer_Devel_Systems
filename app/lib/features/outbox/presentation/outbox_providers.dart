@@ -52,3 +52,13 @@ class OutboxController extends Notifier<bool> {
 final outboxControllerProvider = NotifierProvider<OutboxController, bool>(
   OutboxController.new,
 );
+
+final sendableCountProvider = Provider<int>((ref) {
+  final orders = switch (ref.watch(savedOrdersProvider)) {
+    AsyncData(:final value) => value,
+    _ => const <SavedOrder>[],
+  };
+  return orders
+      .where((o) => OutboxRepository.batchStatuses.contains(o.status))
+      .length;
+});

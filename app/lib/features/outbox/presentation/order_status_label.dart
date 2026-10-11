@@ -18,4 +18,20 @@ extension OrderStatusLabel on OrderStatus {
     OrderStatus.failed => Icons.error_outline,
     OrderStatus.unknown => Icons.help_outline,
   };
+
+  Color get color => switch (this) {
+    OrderStatus.pending => const Color(0xFF8A5300),
+    OrderStatus.sending => const Color(0xFF1E4FC2),
+    OrderStatus.confirmed => const Color(0xFF17693F),
+    OrderStatus.failed => const Color(0xFFB3261E),
+    OrderStatus.unknown => const Color(0xFF5E3F99),
+  };
+
+  Color get background => switch (this) {
+    OrderStatus.pending => const Color(0xFFFFF1D6),
+    OrderStatus.sending => const Color(0xFFE3ECFF),
+    OrderStatus.confirmed => const Color(0xFFDDF5E7),
+    OrderStatus.failed => const Color(0xFFFDE3E3),
+    OrderStatus.unknown => const Color(0xFFEEE7FA),
+  };
 }

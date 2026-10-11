@@ -15,7 +15,8 @@ class CatalogApi {
   final Duration timeout;
 
   Future<List<Product>> fetchProducts() async {
-    final response = await _get(Uri.parse('$_baseUrl/products?limit=30'));
+    final response = await _get(
+      Uri.parse('$_baseUrl/products?limit=30&select=id,title,price,thumbnail'),);
     _ensureOk(response);
     try {
       final body = jsonDecode(response.body) as Map<String, dynamic>;

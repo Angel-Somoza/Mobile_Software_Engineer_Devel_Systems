@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'features/catalog/presentation/catalog_screen.dart';
+import 'app/app_shell.dart';
+import 'core/theme/app_theme.dart';
 import 'features/outbox/presentation/outbox_providers.dart';
 
 Future<void> main() async {
@@ -25,8 +26,9 @@ class FlashOrdersApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flash Orders',
-      theme: ThemeData(colorSchemeSeed: Colors.deepPurple),
-      home: const CatalogScreen(),
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.light(),
+      home: const AppShell(),
     );
   }
 }
