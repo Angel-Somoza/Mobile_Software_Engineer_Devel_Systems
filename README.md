@@ -182,8 +182,7 @@ Contenido: `product:<id>`, con prefijo en minúsculas y un ID entero positivo si
 | `product:99999999999` | `invalidQr` (fuera de rango de `Int`) |
 | `product:999999` | Válido. DummyJSON responde 404 → "Producto no encontrado" (sin línea agregada) |
 
-Las imágenes ya generadas están en [`docs/qr/`](docs/qr/) (un PNG por caso y `sheet.png` con todos). Para regenerarlas:
-
+Las imágenes están en [`docs/qr/`](docs/qr/): un PNG por caso y `sheet.png` con todos. Basta con mostrarlos en otra pantalla.
 
 Basta con mostrarlos en otra pantalla.
 
